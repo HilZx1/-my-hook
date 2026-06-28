@@ -22,10 +22,10 @@ jobs:
       - name: Compile Tweak
         run: |
           export THEOS=$HOME/theos
-          gmake package FINALPACKAGE=1
+          gmake NO_PACKAGE=1 FINALPACKAGE=1
 
       - name: Upload Finished Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: TweakPackage
-          path: packages/*.deb
+          name: TweakBinary
+          path: .theos/obj/debug/GameCenterHook.dylib
