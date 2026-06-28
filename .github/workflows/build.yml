@@ -20,8 +20,11 @@ jobs:
         with:
           theos-dir: ./theos
 
-      - name: Upload Finished File
+      - name: Upload Everything Built
         uses: actions/upload-artifact@v4
         with:
-          name: MyDylib
-          path: "**/GameCenterHook.dylib"
+          name: BuildOutput
+          path: |
+            .theos/
+            packages/
+            *.deb
