@@ -7,24 +7,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Grab iOS SDK
+      - name: Set up Theos and SDK
         run: |
-          mkdir -p theos/sdks
+          git clone --recursive https://github.com/theos/theos.git $HOME/theos
+          mkdir -p $HOME/theos/sdks
           curl -LO https://github.com/theos/sdks/archive/refs/heads/master.zip
           unzip master.zip
-          mv sdks-master/iPhoneOS14.5.sdk theos/sdks/
+          mv sdks-master/iPhoneOS14.5.sdk $HOME/theos/sdks/
           rm -rf master.zip sdks-master
 
-      - name: Build Tweak
-        uses: Randomblock1/theos-action@v1
-        with:
-          theos-dir: ./theos
+      - name: Compile Tweak
+        run: |
+          export THEOS=$HOME/theos
+          make package FINALPACKAGE=1
 
-      - name: Upload Everything Built
+      - name: Upload Finished Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: BuildOutput
+          name: TweakFiles
           path: |
-            .theos/
-            packages/
-            *.deb
+            .theos/obj/*
+            packages/*
