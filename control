@@ -1,0 +1,9 @@
+Package: com.hilzx1.gamecenterhook
+Name: GameCenterHook
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: My GameCenter Hook Tweak
+Maintainer: HilZx1
+Author: HilZx1
+Section: Tweaks
