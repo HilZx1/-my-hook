@@ -7,24 +7,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Theos and SDK
+      - name: Grab iOS SDK
         run: |
-          git clone --recursive https://github.com/theos/theos.git $HOME/theos
-          mkdir -p $HOME/theos/sdks
+          mkdir -p theos/sdks
           curl -LO https://github.com/theos/sdks/archive/refs/heads/master.zip
           unzip master.zip
-          mv sdks-master/iPhoneOS14.5.sdk $HOME/theos/sdks/
+          mv sdks-master/iPhoneOS14.5.sdk theos/sdks/
           rm -rf master.zip sdks-master
 
-      - name: Compile Tweak
-        run: |
-          export THEOS=$HOME/theos
-          make package FINALPACKAGE=1
+      - name: Build Tweak
+        uses: Randomblock1/theos-action@v1
+        with:
+          theos-dir: ./theos
 
-      - name: Upload Finished Artifacts
+      - name: Upload Finished File
         uses: actions/upload-artifact@v4
         with:
-          name: TweakFiles
-          path: |
-            .theos/obj/*
-            packages/*
+          name: MyDylib
+          path: "**/GameCenterHook.dylib"
