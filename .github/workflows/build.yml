@@ -5,7 +5,19 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: Randomblock1/theos-action@v1
+      
+      - name: Download iOS SDK
+        run: |
+          mkdir -p theos/sdks
+          curl -LO https://github.com/theos/sdks/raw/master/iPhoneOS14.5.sdk.tar.xz
+          tar -xf iPhoneOS14.5.sdk.tar.xz -C theos/sdks/
+          rm iPhoneOS14.5.sdk.tar.xz
+
+      - name: Build Tweak
+        uses: Randomblock1/theos-action@v1
+        with:
+          theos_path: ./theos
+
       - uses: actions/upload-artifact@v4
         with:
           name: MyDylib
