@@ -13,5 +13,4 @@
 %end
 
 %ctor {
-    %init; // Required for non-jailbroken injection to initialize the hook
 }
