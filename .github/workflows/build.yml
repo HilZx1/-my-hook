@@ -25,9 +25,10 @@ jobs:
         run: |
           export THEOS=$HOME/theos
           make NO_PACKAGE=1 FINALPACKAGE=1
+          cp .theos/obj/GameCenterHook.dylib ./
 
       - name: Upload Finished Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: TweakBinary
-          path: "**/GameCenterHook.dylib"
+          path: GameCenterHook.dylib
