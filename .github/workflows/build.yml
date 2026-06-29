@@ -30,6 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: TweakBinary
-          path: |
-            .theos/obj/*
-            *.dylib
+          path: "**/GameCenterHook.dylib"
